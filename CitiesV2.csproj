@@ -1,0 +1,469 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HarmonyX" Version="2.15.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="SOD.Common" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="AeLa.EasyFeedback">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\AeLa.EasyFeedback.dll</HintPath>
+    </Reference>
+    <Reference Include="AeLa.EasyFeedback.Demo">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\AeLa.EasyFeedback.Demo.dll</HintPath>
+    </Reference>
+    <Reference Include="AsmResolver">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\AsmResolver.dll</HintPath>
+    </Reference>
+    <Reference Include="AsmResolver.DotNet">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\AsmResolver.DotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="AsmResolver.PE">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\AsmResolver.PE.dll</HintPath>
+    </Reference>
+    <Reference Include="AsmResolver.PE.File">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\AsmResolver.PE.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetBundleLoader">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\plugins\Piepieonline-Asset_Bundle_Loader\AssetBundleLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.CIL">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\AssetRipper.CIL.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.Primitives">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\AssetRipper.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx.Core">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\BepInEx.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx.Preloader.Core">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\BepInEx.Preloader.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx.Unity.Common">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\BepInEx.Unity.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx.Unity.IL2CPP">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\BepInEx.Unity.IL2CPP.dll</HintPath>
+    </Reference>
+    <Reference Include="BigGustave">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\plugins\Piepieonline-Asset_Bundle_Loader\BigGustave.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\plugins\Venomaus-SODCommon\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="com.rlabrecque.steamworks.net">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\com.rlabrecque.steamworks.net.dll</HintPath>
+    </Reference>
+    <Reference Include="CommunityCaseLoader">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\plugins\Piepieonline-CommunityCaseLoader\CommunityCaseLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Cpp2IL.Core">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Cpp2IL.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Disarm">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Disarm.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="FMODUnity">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\FMODUnity.dll</HintPath>
+    </Reference>
+    <Reference Include="FMODUnityResonance">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\FMODUnityResonance.dll</HintPath>
+    </Reference>
+    <Reference Include="Gee.External.Capstone">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Gee.External.Capstone.dll</HintPath>
+    </Reference>
+    <Reference Include="Iced">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Iced.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.Common">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Il2CppInterop.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.Generator">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Il2CppInterop.Generator.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.HarmonySupport">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Il2CppInterop.HarmonySupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Il2CppInterop.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppMono.Security">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppMono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Configuration">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppSystem.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Core">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppSystem.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Data">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppSystem.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Net.Http">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppSystem.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Numerics">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppSystem.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Runtime.Serialization">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppSystem.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Xml">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppSystem.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Xml.Linq">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Il2CppSystem.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="LibCpp2IL">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\LibCpp2IL.dll</HintPath>
+    </Reference>
+    <Reference Include="modio.UI">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\modio.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="modio.UnityPlugin">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\modio.UnityPlugin.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Backports">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\MonoMod.Backports.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.ILHelpers">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\MonoMod.ILHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\MonoMod.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="NaughtyAttributes.Core">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\NaughtyAttributes.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NaughtyAttributes.Test">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\NaughtyAttributes.Test.dll</HintPath>
+    </Reference>
+    <Reference Include="NewAssembly">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\NewAssembly.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectLoader">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\plugins\truedartt-UniversalObjectLoader\ObjectLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Core">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Rewired_Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Windows">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Rewired_Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Windows_Functions">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Rewired_Windows_Functions.dll</HintPath>
+    </Reference>
+    <Reference Include="SemanticVersioning">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\SemanticVersioning.dll</HintPath>
+    </Reference>
+    <Reference Include="SOD.Common">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\plugins\Venomaus-SODCommon\SOD.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="StableNameDotNet">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\StableNameDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UniTask.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Addressables">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.Addressables.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.Burst.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Unsafe">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Collections">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ResourceManager">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.ResourceManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.VisualEffectGraph.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Core">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Unity.VisualScripting.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.AndroidJNIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.ClusterInputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.ClusterRendererModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.CrashReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.DirectorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DSPGraphModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.DSPGraphModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.GameCenterModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GIModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.GIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.HotReloadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.LocalizationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.NVIDIAModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.NVIDIAModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.PerformanceReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.ProfilerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.ScreenCaptureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.SharedInternalsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.SpriteShapeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.StreamingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.SubstanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubsystemsModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.SubsystemsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreFontEngineModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreTextEngineModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.TLSModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsNativeModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UIElementsNativeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UmbraModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UNETModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsCommonModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityAnalyticsCommonModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityCurlModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityCurlModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.VehiclesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.VFXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VirtualTexturingModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.VirtualTexturingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.VRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.WindModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UniverseLib.IL2CPP.Interop">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\plugins\Venomaus-SODCommon\UniverseLib.IL2CPP.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="WasmDisassembler">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\WasmDisassembler.dll</HintPath>
+    </Reference>
+    <Reference Include="Whinarn.UnityMeshSimplifier.Runtime">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\Whinarn.UnityMeshSimplifier.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="__Generated">
+      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\__Generated.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
