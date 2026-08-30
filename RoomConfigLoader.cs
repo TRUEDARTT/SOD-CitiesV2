@@ -1,12 +1,12 @@
-﻿using static ObjectLoader.Loader;
-using Il2CppInterop.Runtime;
-using UnityEngine;
+﻿using Il2CppInterop.Runtime;
 using ObjectLoader;
+using UnityEngine;
+using static ObjectLoader.Loader;
+using HarmonyLib;
 
 
 public class RoomLoader : CitiesV2
 {
-    public static List<string> loaded = new List<string>();
     public static List<RoomConfiguration> roomConfigs = new();
     public static List<RoomTypePreset> presets = new();
     public static List<FiltersToAdd> filtersToAdd = new();
@@ -14,8 +14,6 @@ public class RoomLoader : CitiesV2
     {
         foreach (var room in rooms)
         {
-            if (loaded.Contains(room.Key)) return;
-            loaded.Add(room.Key);
             LoadRoom(room.Key, room.Value);
         }
     }
@@ -27,6 +25,30 @@ public class RoomLoader : CitiesV2
     public static void LoadRoom(string name, string dir)
     {
         var cache = Toolbox.Instance.resourcesCache;
+
+        // DROPPING THE OLD ONES IF THEY ARE THERE
+        try 
+        {
+            var cacheRC = cache[Il2CppType.Of<RoomConfiguration>()];
+            ScriptableObject.Destroy(cacheRC[name]);
+            cacheRC.Remove(name);
+            
+            cacheRC = cache[Il2CppType.Of<RoomClassPreset>()];
+            ScriptableObject.Destroy(cacheRC[name]);
+            cacheRC.Remove(name);
+
+            cacheRC = cache[Il2CppType.Of<RoomTypeFilter>()];
+            ScriptableObject.Destroy(cacheRC[name]);
+            cacheRC.Remove(name);
+
+            cacheRC = cache[Il2CppType.Of<RoomTypePreset>()];
+            ScriptableObject.Destroy(cacheRC[name]);
+            cacheRC.Remove(name);
+        }
+        catch(Exception)
+        {
+            CitiesV2.Log.LogInfo("Nothing to drop (CUSTOM ROOM)");
+        }
 
         var rc = LoadFromJson<RoomConfiguration>(Path.Combine(dir, name, name + "_config.json"));
         RoomClassPreset rClass = ScriptableObject.CreateInstance<RoomClassPreset>();
@@ -48,6 +70,9 @@ public class RoomLoader : CitiesV2
         foreach (var filter in filters.Filters)
         {
             filter.roomClasses.Add(rClass);
+#if DEBUG
+            CitiesV2.Log.LogWarning($"Adding custom room {name} to {filter.presetName}");
+#endif
         }
 
         foreach (var address in filters.Addresses)
@@ -81,12 +106,9 @@ public class RoomLoader : CitiesV2
         {
             cl.allowedRoomFilters.Add(dummy);
             cl.enableDebug = true;
-#if DEBUG
-            cl.essentialFurniture = true;
-#endif
         }
         filtersToAdd.Add(filters);
-        
+
 
         Toolbox.Instance.furnitureRoomTypeRef.Add(rClass, hFurnSet);
     }
@@ -104,3 +126,31 @@ public class FiltersToAdd
     public List<MaterialGroupPreset> MaterialGroups { get; set; } = new();
     public List<AddressPreset> Addresses { get; set; } = new();
 }
+
+#if DEBUG
+[HarmonyPatch(typeof(GenerationController),nameof(GenerationController.GetValidFurniture))]
+public class FurnishDebugAlpha
+{
+
+    public static bool Prefix(ref bool debug, ref bool ignoreLimitations)
+    {
+        debug = CitiesV2.debugFurniture;
+        return true;
+    }
+}
+
+[HarmonyPatch(typeof(GenerationController), nameof(GenerationController.GetBestFurnitureClusterLocation))]
+public class FurnishDebugBeta
+{
+    public static bool Prefix(ref bool ignoreLimitations)
+    {
+        ignoreLimitations = CitiesV2.ignoreLimitations;
+        return true;
+    }
+    public static void Postfix(ref NewRoom room, ref FurnitureCluster cluster, ref FurnitureClusterLocation __result)
+    {
+        if (__result  == null) CitiesV2.Log.LogError($"Furniture cluster {cluster.presetName} failed in {room.name}. Room Node count: {room.nodes.Count}");
+    }
+}
+
+#endif

@@ -1,11 +1,10 @@
 ﻿#region Usings
 using BepInEx;
 using HarmonyLib;
+using ObjectLoader;
 using SOD.Common.BepInEx;
 using System.Reflection;
 using System.Text.Json;
-using UnityEngine;
-using ObjectLoader;
 #endregion
 
 #region Base
@@ -19,7 +18,7 @@ public class CitiesV2 : PluginController<CitiesV2>
     public const string PluginName = "CitiesV2";
     public const string PluginVersion = "0.1.0";
 
-    protected static JsonSerializerOptions serializerOptions = new JsonSerializerOptions { AllowTrailingCommas = true, WriteIndented = true, MaxDepth = 256};
+    protected static JsonSerializerOptions serializerOptions = new JsonSerializerOptions { AllowTrailingCommas = true, WriteIndented = true, MaxDepth = 256, ReadCommentHandling = JsonCommentHandling.Skip };
 
     protected static string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
@@ -28,13 +27,20 @@ public class CitiesV2 : PluginController<CitiesV2>
     /// <summary>
     /// Add your building manifest here. The string represents the extra folder it lies in.
     /// </summary>
-    public static readonly Dictionary<string,BuildingManifestBase> buildingManifests = new();
+    public static readonly Dictionary<string, BuildingManifestBase> buildingManifests = new();
 
     /// <summary>
     /// Add your rooms here. The first string represents the name of it.
     /// The second string is the directory the folder is located in (use Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).
     /// </summary>
     public static readonly Dictionary<string, string> rooms = new();
+
+
+#if DEBUG
+
+    public static bool debugFurniture = false;
+    public static bool ignoreLimitations = false;
+#endif
 
     #endregion
 

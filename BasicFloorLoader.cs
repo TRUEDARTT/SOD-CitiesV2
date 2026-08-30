@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 #region Header
@@ -9,7 +8,7 @@ public class LoaderMethods : CitiesV2
     {
         BuildingPreset.InteriorFloorSetting? target = null;
 
-        string pathBase = Path.Combine(dir,@"Floorplans\");
+        string pathBase = Path.Combine(dir, @"Floorplans\");
 
         foreach (var building in AssetLoader.Instance.allBuildingData)
         {
@@ -55,7 +54,7 @@ public class FloorLoaderConfig
 // [HarmonyPatch(typeof(Toolbox), nameof(Toolbox.Start))] 
 public class FloorLoader : CitiesV2
 {
-    public static Dictionary<string,FloorSaveData> floorSaveDatas = new();
+    public static Dictionary<string, FloorSaveData> floorSaveDatas = new();
 
     public static void Postfix()
     {
