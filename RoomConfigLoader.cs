@@ -106,8 +106,13 @@ public class RoomLoader : CitiesV2
         {
             cl.allowedRoomFilters.Add(dummy);
             cl.enableDebug = true;
+            if(!Toolbox.Instance.allFurnitureClusters.Contains(cl))
+            {
+                Toolbox.Instance.allFurnitureClusters.Add(cl);
+            }
         }
         filtersToAdd.Add(filters);
+
 
 
         Toolbox.Instance.furnitureRoomTypeRef.Add(rClass, hFurnSet);
@@ -125,6 +130,7 @@ public class FiltersToAdd
     public List<FurnitureCluster> Clusters { get; set; } = new();
     public List<MaterialGroupPreset> MaterialGroups { get; set; } = new();
     public List<AddressPreset> Addresses { get; set; } = new();
+    public List<FurnitureClass> ClassesToEdit { get; set; } = new();
 }
 
 #if DEBUG

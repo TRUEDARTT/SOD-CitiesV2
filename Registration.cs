@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using Il2CppSystem.Runtime.Remoting.Messaging;
 using static ObjectLoader.Loader;
 
 
@@ -26,21 +25,3 @@ public class FloorRegistration : CitiesV2
     }
 
 }
-
-/*
-[HarmonyPatch(typeof(CityBuildings), nameof(CityBuildings.Awake))]
-public class BuildingRegistration : CitiesV2
-{
-    public static void Postfix(CityBuildings __instance)
-    {
-        foreach (var building in BuildingLoader.buildings)
-        {
-            __instance.buildingPresets.Add(building.preset);
-        }
-        FloorRegistration.Postfix();
-    }
-}
-
-*/
-
-

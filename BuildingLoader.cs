@@ -1,9 +1,7 @@
 ﻿using HarmonyLib;
-using Il2CppInterop.Runtime;
 using ObjectLoader;
 using SOD.Common.Extensions;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using UnityEngine;
 using static ObjectLoader.Loader;
 using static WindowFloorPatch;
@@ -23,12 +21,15 @@ public class BuildingLoader : CitiesV2
     public static void Postfix()
     {
 #if DEBUG
-        Game.Instance.collectDebugData = true;
-        Game.Instance.devMode = true;
-        Game.Instance.debugDisplayRoads = true;
-        Game.Instance.debugPathfinding = true;
-        Game.Instance.enableCullingDebug = true;
-        Game.Instance.printDebug = true;
+        if (basicDebug)
+        {
+            Game.Instance.collectDebugData = true;
+            Game.Instance.devMode = true;/*
+            Game.Instance.debugDisplayRoads = true;
+            Game.Instance.debugPathfinding = true;
+            Game.Instance.enableCullingDebug = true;*/
+            Game.Instance.printDebug = true;
+        }
 #endif
 
         //room n shit
@@ -61,10 +62,14 @@ public class BuildingLoader : CitiesV2
 
 
         CityChaos.SetupChaos();
-        ObjectLoader.Helpers.GetScriptableObject("SyncClinic", typeof(AddressPreset)).Cast<AddressPreset>().baseScore = 1;
+        WindowFixes.FixWindows();
 
+        // FORCED EDITS
+        ObjectLoader.Helpers.GetScriptableObject<AddressPreset>("SyncClinic").baseScore = 1;
+        var rBar = Helpers.GetScriptableObject<RoomConfiguration>("RooftopBar");
+        rBar.sceneClean = SessionData.SceneProfile.outdoors;
+        rBar.sceneDirty = SessionData.SceneProfile.outdoors;
 
-        // old code btw
         FloorLoader.Postfix();
 
         FloorRegistration.Postfix();

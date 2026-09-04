@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SOD.Common.Extensions;
 using static ObjectLoader.Helpers;
 
 
@@ -112,6 +111,8 @@ public class CityChaos : CitiesV2
                     "1x1SupermarketShelvingForward",
                     "1x1SupermarketShelvingSign",
                     "1x1SupermarketStand",
+                    "2x1ParkBenchSingle",
+                    "2x1ParkBenchStreetCentre"
 
                 },
                 DoubleFrontageRoomConfigs =
@@ -132,6 +133,83 @@ public class CityChaos : CitiesV2
     };
 
     #endregion
+}
+
+public class WindowFixes : CitiesV2
+{
+    // TARGET: RoomConfigurations that do not have a window.
+    public static string[] windowFixes =
+    {
+        "GamblingDen",
+        "WeaponsDealer",
+        "BlackmarketSyncClinic",
+        "BasementGenericDen",
+        "BasementGenericBathroom",
+        "LoanShark",
+        "BlackmarketTrader",
+        "IndustrialOffice"
+    };
+
+    public static void FixWindows()
+    {
+        foreach(var configName in windowFixes)
+        {
+            var config = GetScriptableObject(configName, typeof(RoomConfiguration)).Cast<RoomConfiguration>();
+            if (config == null) 
+            {
+                Log.LogError($"Room configuration '{configName}' not found.");
+                continue; 
+            }
+
+            Il2CppSystem.Collections.Generic.List<WallFrontageClass> outsideFrontage = new List<WallFrontageClass>()
+            {
+                GetScriptableObject<WallFrontageClass>("LargeRectangeWindowBlinds")
+            }.ToListIl2Cpp();
+
+            bool archExists = false;
+            bool rectExists = false;
+
+            foreach (var wallFrontage in config.wallFrontage)
+            {
+                if(wallFrontage.wallPreset.id == "15")
+                {
+                    archExists = true;
+                    wallFrontage.insideFrontage = outsideFrontage;
+                    wallFrontage.outsideFrontage = outsideFrontage;
+                }
+                if(wallFrontage.wallPreset.id == "16")
+                {
+                    rectExists = true;
+                    wallFrontage.insideFrontage = outsideFrontage;
+                    wallFrontage.outsideFrontage = outsideFrontage;
+                }
+            }
 
 
+
+            if(!archExists)
+            {
+                var frontage = new RoomConfiguration.WallFrontage()
+                {
+                    name = "WindowFix",
+                    wallPreset = GetScriptableObject<DoorPairPreset>("15"),
+                    outsideFrontage = outsideFrontage,
+                    insideFrontage = outsideFrontage
+                };
+                config.wallFrontage.Add(frontage);
+            }
+
+            if (!rectExists)
+            {
+                var frontage2 = new RoomConfiguration.WallFrontage()
+                {
+                    name = "WindowFix",
+                    wallPreset = GetScriptableObject<DoorPairPreset>("16"),
+                    outsideFrontage = outsideFrontage,
+                    insideFrontage = outsideFrontage
+                };
+                config.wallFrontage.Add(frontage2);
+            }
+        }
+    }
 }

@@ -163,15 +163,10 @@ public class ElevatorFix
     {
         if (__instance.top != null && __instance.cable1 != null)
         {
-            float y = __instance.top.position.y + PathFinder.Instance.tileSize.z - __instance.cable1.localPosition.y;
-            float b = __instance.bottom.position.y + PathFinder.Instance.tileSize.z - __instance.cable1.localPosition.y;
-            __instance.cable1.localScale = new Vector3(1f, y - b + 0.5f, 1f);
-            __instance.cable2.localScale = new Vector3(1f, y - b + 0.5f, 1f);
+            float y = __instance.top.position.y + PathFinder.Instance.tileSize.z - __instance.cable1.position.y;
+            __instance.cable1.localScale = new Vector3(1f, y, 1f);
+            __instance.cable2.localScale = new Vector3(1f, y, 1f);
         }
         return false;
     }
-
-
-
-
 }

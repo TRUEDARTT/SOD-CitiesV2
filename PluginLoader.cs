@@ -16,7 +16,7 @@ public class CitiesV2 : PluginController<CitiesV2>
 {
     public const string PluginGUID = "truedartt.citiesv2";
     public const string PluginName = "CitiesV2";
-    public const string PluginVersion = "0.1.0";
+    public const string PluginVersion = "0.2.1";
 
     protected static JsonSerializerOptions serializerOptions = new JsonSerializerOptions { AllowTrailingCommas = true, WriteIndented = true, MaxDepth = 256, ReadCommentHandling = JsonCommentHandling.Skip };
 
@@ -39,6 +39,7 @@ public class CitiesV2 : PluginController<CitiesV2>
 #if DEBUG
 
     public static bool debugFurniture = false;
+    public static bool basicDebug = false;
     public static bool ignoreLimitations = false;
 #endif
 
