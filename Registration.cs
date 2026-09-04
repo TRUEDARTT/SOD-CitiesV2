@@ -2,7 +2,7 @@
 using static ObjectLoader.Loader;
 
 
-
+[HarmonyPatch(typeof(CityData), nameof(CityData.ParseFloorData))]
 public class FloorRegistration : CitiesV2
 {
     public static void Postfix()
@@ -14,7 +14,7 @@ public class FloorRegistration : CitiesV2
             foreach (var lay in bd.preset.floorLayouts)
             {
                 foreach (var bp in lay.blueprints) if (!dict.ContainsKey(bp.name)) dict.Add(bp.name, LoadObject<FloorSaveData>(bp.text));
-                foreach (var bp in lay.controlRoomVariants) if(!dict.ContainsKey(bp.name)) dict.Add(bp.name, LoadObject<FloorSaveData>(bp.text));
+                foreach (var bp in lay.controlRoomVariants) if (!dict.ContainsKey(bp.name)) dict.Add(bp.name, LoadObject<FloorSaveData>(bp.text));
             }
             foreach (var lay in bd.preset.basementLayouts)
             {
@@ -25,20 +25,3 @@ public class FloorRegistration : CitiesV2
     }
 
 }
-
-
-[HarmonyPatch(typeof(BuildingCreator),nameof(BuildingCreator.Awake))]
-public class BuildingRegistration : CitiesV2
-{
-    public static void Postfix(BuildingCreator __instance)
-    {
-        foreach (var building in BuildingLoader.buildings)
-        {
-            __instance.buildingPresets.Add(building.preset);
-        }
-    }
-}
-
-
-
-

@@ -1,8 +1,7 @@
 ﻿using HarmonyLib;
 using UnityEngine;
 
-
-[HarmonyPatch(typeof(CityConstructor),nameof(CityConstructor.FinalizePostSave))]
+[HarmonyPatch(typeof(Player),nameof(Player.PrepForStart))]
 public class StairwellFix : CitiesV2
 {
     public static List<Stairfix> toRun = new();
@@ -10,13 +9,14 @@ public class StairwellFix : CitiesV2
     [Serializable]
     public class NodePair
     {
-        public Vector2Int nodeOne {get;set;}
-        public Vector2Int nodeTwo {get;set;}
+        public Vector2Int nodeOne { get; set; }
+        public Vector2Int nodeTwo { get; set; }
 
     }
 
     public static void Postfix()
     {
+        Log.LogMessage("Fixing Stair connections...");
         // i also have to fix the posoffset not working
         foreach (var man in BuildingLoader.buildings)
         {
@@ -27,23 +27,24 @@ public class StairwellFix : CitiesV2
                 {
                     Transform mesh = m.Cast<Transform>();
                     if (mesh.name != man.preset.prefab.name + "(Clone)") continue;
-                    Log.LogMessage($"OG position {mesh.position}");
-                    mesh.position = new(mesh.position.x , mesh.position.y + man.posOffset, mesh.position.z);
-                    Log.LogMessage($"NEW position {mesh.position}");
-                }     
+                    Log.LogInfo($"OG position {mesh.position}");
+                    mesh.position = new(mesh.position.x, mesh.position.y + man.posOffset, mesh.position.z);
+                    Log.LogInfo($"NEW position {mesh.position}");
+                }
             }
         }
 
         foreach (var fix in toRun)
         {
+            Log.LogInfo($"Fixing: {fix.floorPresetIndex}(floorIndex) at {fix.preset}.");
             FixStairwell(fix);
         }
-        toRun.Clear();
+        //toRun.Clear();
     }
 
 
 
-    public static Vector2Int CalculatePos(Vector2Int pos, int rotation, int grid) //21 is the default
+    public static Vector2Int CalculatePos(Vector2Int pos, int rotation, int grid = 21) //21 is the default
     {
         rotation = rotation % 4;
 
@@ -106,7 +107,7 @@ public class StairwellFix : CitiesV2
             foreach (var floor in building.floors.Values)
             {
 
-                if (targets.Contains(floor.name))
+                if (targets.Contains(floor.floorName))
                 {
                     Dictionary<NodePair, (NewNode? one, NewNode? two)> nodeMap = new();
                     foreach (var node in nodes)
@@ -155,22 +156,17 @@ public class Stairfix
 
 
 // SO THAT CABLES WONT EXTEND
-[HarmonyPatch(typeof(Elevator),nameof(Elevator.UpdateCables))]
+[HarmonyPatch(typeof(Elevator), nameof(Elevator.UpdateCables))]
 public class ElevatorFix
 {
     public static bool Prefix(Elevator __instance)
     {
         if (__instance.top != null && __instance.cable1 != null)
         {
-            float y = __instance.top.position.y + PathFinder.Instance.tileSize.z - __instance.cable1.localPosition.y;
-            float b = __instance.bottom.position.y + PathFinder.Instance.tileSize.z - __instance.cable1.localPosition.y;
-            __instance.cable1.localScale = new Vector3(1f, y - b + 0.5f, 1f);
-            __instance.cable2.localScale = new Vector3(1f, y - b + 0.5f, 1f);
+            float y = __instance.top.position.y + PathFinder.Instance.tileSize.z - __instance.cable1.position.y;
+            __instance.cable1.localScale = new Vector3(1f, y, 1f);
+            __instance.cable2.localScale = new Vector3(1f, y, 1f);
         }
         return false;
     }
-
-
-
-
 }

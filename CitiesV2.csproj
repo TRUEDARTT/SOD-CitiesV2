@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HarmonyX" Version="2.15.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="SOD.Common" Version="2.1.0" />
   </ItemGroup>
@@ -70,9 +69,6 @@
     </Reference>
     <Reference Include="com.rlabrecque.steamworks.net">
       <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\interop\com.rlabrecque.steamworks.net.dll</HintPath>
-    </Reference>
-    <Reference Include="CommunityCaseLoader">
-      <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\plugins\Piepieonline-CommunityCaseLoader\CommunityCaseLoader.dll</HintPath>
     </Reference>
     <Reference Include="Cpp2IL.Core">
       <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ShadowsofDoubt\profiles\Default\BepInEx\core\Cpp2IL.Core.dll</HintPath>

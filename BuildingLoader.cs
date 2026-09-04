@@ -1,18 +1,8 @@
-﻿using CommunityCaseLoader;
-using HarmonyLib;
-using Il2CppInterop.Runtime;
-using JetBrains.Annotations;
+﻿using HarmonyLib;
 using ObjectLoader;
 using SOD.Common.Extensions;
-using System;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UniverseLib;
 using static ObjectLoader.Loader;
 using static WindowFloorPatch;
 
@@ -26,29 +16,35 @@ public class BuildingLoader : CitiesV2
 
     public static List<UniverseLib.AssetBundle> bundles = new();
 
-
     public static List<string> loaded = new();
-
     // no idea if this will work
     public static void Postfix()
     {
 #if DEBUG
-        Game.Instance.collectDebugData = true;
-        Game.Instance.devMode = true;
-        Game.Instance.debugDisplayRoads = true;
-        Game.Instance.debugPathfinding = true;
-        Game.Instance.enableCullingDebug = true;
+        if (basicDebug)
+        {
+            Game.Instance.collectDebugData = true;
+            Game.Instance.devMode = true;/*
+            Game.Instance.debugDisplayRoads = true;
+            Game.Instance.debugPathfinding = true;
+            Game.Instance.enableCullingDebug = true;*/
+            Game.Instance.printDebug = true;
+        }
 #endif
 
         //room n shit
         RoomLoader.LoadAll();
 
 
+        loaded.Clear();
+        foreach (var building in buildings)
+        {
+            AssetLoader.instance.allBuildingData.Remove(building.preset);
+        }
 
 
         foreach (var baseMan in buildingManifests)
         {
-            if (loaded.Contains(baseMan.Key)) return;
             var man = LoadBuilding(baseMan.Value, dir, baseMan.Key);
             if (man != null) buildings.Add(man);
             else continue;
@@ -64,51 +60,16 @@ public class BuildingLoader : CitiesV2
         }
 
 
-        // EXTRAS
 
-        // will add more clutter but its cool af
-        foreach (var temp in Toolbox.Instance.resourcesCache[Il2CppType.Of<RoomConfiguration>()].Values)
-        {
-            var cfg = temp.Cast<RoomConfiguration>();
-            foreach (var frontage in cfg.wallFrontage)
-            {
-                frontage.onlyIfBorderingOutside = true;
-                foreach(var insidefrontage in frontage.insideFrontage)
-                {
-                    frontage.outsideFrontage.Add(insidefrontage);
-                }
-                foreach (var outsideFrontage in frontage.outsideFrontage)
-                {
-                    if (!frontage.insideFrontage.Contains(outsideFrontage)) frontage.insideFrontage.Add(outsideFrontage);
-                }
-            }
-        }
-        foreach (var cfg in Toolbox.Instance.allFurnitureClusters)
-        {
-            cfg.limitToFloor = false;
-            cfg.limitToFloorRange = false;
-            cfg.allowedInOpenPlan = FurnitureCluster.AllowedOpenPlan.yes;
-        }
-        foreach (var cfg in Toolbox.Instance.resourcesCache[Il2CppType.Of<FurnitureClass>()].Values)
-        {
-            cfg.Cast<FurnitureClass>().limitToFloor = false;
-            cfg.Cast<FurnitureClass>().limitToFloorRange = false;
-            cfg.Cast<FurnitureClass>().requiresCeiling = false;
-        }
+        CityChaos.SetupChaos();
+        WindowFixes.FixWindows();
 
+        // FORCED EDITS
+        ObjectLoader.Helpers.GetScriptableObject<AddressPreset>("SyncClinic").baseScore = 1;
+        var rBar = Helpers.GetScriptableObject<RoomConfiguration>("RooftopBar");
+        rBar.sceneClean = SessionData.SceneProfile.outdoors;
+        rBar.sceneDirty = SessionData.SceneProfile.outdoors;
 
-        foreach (var cfg in Toolbox.Instance.allAddressPresets)
-        {
-            if (cfg.name == "SyncClinic")
-            {
-                cfg.baseScore = 1;
-            }
-        }
-
-
-
-
-        // old code btw
         FloorLoader.Postfix();
 
         FloorRegistration.Postfix();
@@ -119,12 +80,8 @@ public class BuildingLoader : CitiesV2
     /// <summary>
     /// Used to load a building
     /// </summary>
-    public static BuildingManifest LoadBuilding(BuildingManifestBase manifest,string baseDir ,string extraDir)
+    public static BuildingManifest LoadBuilding(BuildingManifestBase manifest, string baseDir, string extraDir)
     {
-        if (manifest.hasBeenAdded)
-        {
-            return null;
-        }
         TempChangePath(Path.Combine(baseDir, extraDir));
         BuildingManifest buildingManifest = new();
         buildingManifest.preset = LoadFromJson<BuildingPreset>(Path.Combine(baseDir, extraDir, manifest.BuildingPresetSO));
@@ -140,7 +97,7 @@ public class BuildingLoader : CitiesV2
         buildingManifest.addonMap = objectList.Find(x => x.name == manifest.BuildingAddonMap).Cast<Texture2D>();
         buildingManifest.litMap = objectList.Find(x => x.name == manifest.BuildingLitMap).Cast<Texture2D>();
         buildingManifest.unlitMap = objectList.Find(x => x.name == manifest.BuildingUnlitMap).Cast<Texture2D>();
-        buildingManifest.prefab = objectList.Find(x => x.name == manifest.BuildingPrefab).Cast<GameObject>(); // PROBLEM HERE
+        buildingManifest.prefab = objectList.Find(x => x.name == manifest.BuildingPrefab).Cast<GameObject>();
 
         buildingManifest.posOffset = manifest.PosOffset;
 
@@ -162,6 +119,7 @@ public class BuildingLoader : CitiesV2
         preset.prefab.tag = "BuildingModel";
 
         preset.name = preset.presetName;
+        
         preset.CalculateMeshHeight();
 
 
@@ -203,9 +161,6 @@ public class BuildingLoader : CitiesV2
         AssetLoader.Instance.allBuildingData.Add(preset);
         return buildingManifest;
     }
-
-
-
 }
 
 #region Serializer Conversions
@@ -219,7 +174,7 @@ public class WindowFloorPatch
 
     public static System.Collections.Generic.List<WindowFloorPatch> GeneratePatched(Il2CppSystem.Collections.Generic.List<BuildingPreset.WindowUVFloor> original)
     {
-        System.Collections.Generic.List<WindowFloorPatch> patched = new ();
+        System.Collections.Generic.List<WindowFloorPatch> patched = new();
         foreach (var floor in original)
         {
             WindowFloorPatch patch = new();
@@ -255,7 +210,7 @@ public class WindowFloorPatch
     public static Il2CppSystem.Collections.Generic.List<BuildingPreset.WindowUVFloor> Unpack(System.Collections.Generic.List<WindowFloorPatch> patched)
     {
         Il2CppSystem.Collections.Generic.List<BuildingPreset.WindowUVFloor> original = new();
-        
+
         foreach (var floor in patched)
         {
             BuildingPreset.WindowUVFloor og = new();
@@ -368,13 +323,11 @@ public class WindowFloorPatch
 [Serializable]
 public class BuildingManifestBase
 {
-    [JsonIgnore]
-    public bool hasBeenAdded = false;
     public string BuildingPresetSO { get; set; }
     public string BuildingAssetBundle { get; set; }
     public string BuildingPrefab { get; set; }
     public string BuildingTexture { get; set; }
-    public string BuildingUnlitMap { get; set; } 
+    public string BuildingUnlitMap { get; set; }
     public string BuildingLitMap { get; set; }
     public string? BuildingWindowMap { get; set; }
     public string? BuildingAddonMap { get; set; }
